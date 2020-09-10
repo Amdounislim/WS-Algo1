@@ -1,0 +1,71 @@
+ALGORITHM Automate
+VAR
+    state : INTEGER :=0;
+    c : CHAR;
+    int_part, dec_part : INTEGER :=0;
+BEGIN
+    WHILE (state<>4 AND state<>5) DO
+        Read(c)
+        SWITCH (state) DO
+            case 0 : 
+                IF (c=' ') THEN
+                    state:= 0;
+                    BREAK;
+                ELSE_IF (isDigit(c)) THEN
+                    state := 1;
+                    int_part := ToInteger(c);
+                    BREAK;
+                ELSE
+                    state:=5;
+                    BREAK;
+                END_IF
+
+            case 1 :
+                IF (isDigit(c)) THEN
+                    state:=1;
+                    int_part:= int_part*10 + ToInteger(c);
+                    BREAK;
+                ELSE_IF (c='.') THEN
+                    state:=2;
+                    BREAK;
+                ELSE_IF (c='#') THEN
+                    state:=4;
+                    BREAK;
+                ELSE
+                    state := 5;
+                    BREAK;
+                END_IF 
+
+            case 2:
+                IF (isDigit(c)) THEN
+                    state :=3;
+                    dec_part:=ToInteger(c);
+                    Break;
+                ELSE
+                    state:=5;
+                    BREAK;
+                END_IF   
+            case 3 :
+                IF (isDigit(c)) THEN
+                    state:=3
+                    dec_part:=dec_part*10+ToInteger(c);
+                    BREAK;
+                ELSE_IF (c='#') THEN
+                    state :=4;
+                    BREAK;
+                ELSE
+                    state := 5;
+                    BREAK;
+                END_IF
+
+        END_SWITCH
+    END_WHILE
+
+    IF (state=4) THEN
+        write("Valid expression");
+        write("The integer part is : ", int_part);
+        write("The decimal part is : ", dec_part);
+    ELSE
+        write("Non valid expression")
+    END_IF
+END

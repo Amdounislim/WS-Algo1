@@ -1,0 +1,16 @@
+ALGORITHM Permutation
+VAR
+    x, y, z, aux :INTEGER;
+BEGIN
+    write("Give the x number");
+    Read(x);
+    write("Give the y number");
+    Read(y);
+    write("Give the z number");
+    Read(z);
+
+    aux := x;
+    x:= y;
+    y := z;
+    z := aux;
+END
